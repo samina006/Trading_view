@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<style>
+.login-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:60vh;
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-control{
+    background: rgba(255,255,255,0.15);
+    border:none;
+    color:white;
+}
+
+.form-control::placeholder{
+    color:#ddd;
+}
+
+.btn-login{
+    background:#00c6ff;
+    border:none;
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-login:hover{
+    background:#0072ff;
+}
+
+.google-btn{
+    background:white;
+    color:black;
+    border:none;
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+</style>
+
+<div class="login-wrapper">
+
+<div class="login-card">
+
+    <h2 class="text-center mb-4">Login</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="text" name="username" class="form-control" placeholder="Username">
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+
+        <div class="text-center mt-3">
+            Don't have an account?
+            <a href="{% url 'register' %}" style="color:#00c6ff;">Register</a>
+        </div>
+    </form>
+</div>
+
+</div>
+
+{% endblock %}

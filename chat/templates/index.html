@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+.container.main-content{
+    max-width:100%;
+    padding:0;
+}
+
+.page-wrapper{
+    display:flex;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    height:100vh;
+    position: sticky;
+    top:0;
+    left:0;
+    background:#020617;
+    padding:20px;
+}
+
+.sidebar a{
+    display:block;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    background: rgba(255,255,255,0.08);
+    transition:0.3s;
+}
+
+.sidebar a:hover{
+    background:#3b82f6;
+}
+
+/* Content */
+.content-area{
+    flex:1;
+    padding:30px;
+    color:white;
+}
+
+/* Loader */
+.loader{
+    position: fixed;
+    top:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    border:5px solid rgba(255,255,255,0.2);
+    border-top:5px solid #3b82f6;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+    display:none;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+
+/* Table */
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse: collapse;
+    color:white;
+}
+
+th,td{
+    border:1px solid #444;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#1f2937;
+}
+
+h3{
+    margin-top:20px;
+}
+
+.alert-box{
+    margin-bottom:15px;
+}
+
+</style>
+
+<!-- Loader -->
+<div class="loader" id="loader"></div>
+
+<div class="page-wrapper">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h5 class="mb-3 text-white">Dashboard</h5>
+
+        <a href="/login/" onclick="showLoader()">Login</a>
+        <a href="/search/" onclick="showLoader()">Search</a>
+         <a href="/logout/" onclick="showLoader()">Logout</a>
+    </div>
+
+    <!-- Content Area -->
+ 
+<div class="container mt-4">
+
+    {% if message %}
+        <div class="alert alert-info text-center">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    {% if symbol %}
+        <h2>{{ symbol }} Financial Data</h2>
+    {% else %}
+        <h2>Dashboard</h2>
+    {% endif %}
+
+    {% if table_data %}
+
+        {% for table in table_data %}
+            <h4 class="mt-4">{{ table.category }}</h4>
+
+             <table>
+        <tr>
+            <th>Metric</th>
+            {% for p in periods %}
+
+                <th>{{ p }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in table.rows %}
+        <tr>
+            <td><b>{{ row.metric }}</b></td>
+
+            {% for value in row.values %}
+                <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+        {% endfor %}
+
+    {% else %}
+        <p>No data available 😢</p>
+    {% endif %}
+
+</div>
+
+</div>
+
+<script>
+function showLoader(){
+    let loader = document.getElementById("loader");
+    loader.style.display = "block";
+
+    setTimeout(()=>{
+        loader.style.display = "none";
+    },2000);
+}
+</script>
+
+{% endblock %}

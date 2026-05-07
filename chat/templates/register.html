@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+<style>
+
+body{
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    font-family: Arial;
+    color:white;
+}
+
+/* center container */
+.register-wrapper{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+/* card */
+.register-card{
+    width:100%;
+    max-width:420px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* inputs */
+.form-control{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+    border:none;
+    background: rgba(255,255,255,0.15);
+    color:white;
+}
+
+.form-control::placeholder{
+    color:#ddd;
+}
+
+/* button */
+.btn-register{
+    background:#00c6ff;
+    border:none;
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+.btn-register:hover{
+    background:#0072ff;
+}
+
+/* link */
+.link{
+    text-align:center;
+    margin-top:15px;
+}
+
+.link a{
+    color:#00c6ff;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="register-wrapper">
+
+    <div class="register-card">
+
+        <h2 style="text-align:center;">Register</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="username" class="form-control" placeholder="Username">
+
+            <input type="password" name="password" class="form-control" placeholder="Password">
+
+            <button type="submit" class="btn-register">Create Account</button>
+        </form>
+
+        <div class="link">
+            Already have an account? <a href="/login/">Login</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

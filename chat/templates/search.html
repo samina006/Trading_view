@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+/* Center Box */
+.search-box{
+    max-width:700px;
+    margin:auto;
+    margin-top:80px;
+    text-align:center;
+}
+
+/* Input */
+.search-input{
+    height:60px;
+    font-size:18px;
+    border-radius:12px;
+    border:none;
+    padding-left:20px;
+}
+
+/* Button */
+.scrape-btn{
+    margin-top:20px;
+    width:200px;
+    height:50px;
+    font-size:18px;
+    border-radius:10px;
+}
+
+/* Result Box */
+.result-box{
+    margin-top:40px;
+    padding:20px;
+    border-radius:12px;
+    background: rgba(255,255,255,0.05);
+}
+
+/* Loader */
+.loader{
+    margin-top:20px;
+    width:40px;
+    height:40px;
+    border:5px solid rgba(255,255,255,0.2);
+    border-top:5px solid #3b82f6;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+    display:none;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+@keyframes spin{
+    100%{transform:rotate(360deg);}
+}
+
+</style>
+
+<div class="search-box">
+
+    <h2 class="mb-4">Search Company Data 🔍</h2>
+
+    <!-- ✅ FORM -->
+    <form method="POST" onsubmit="showLoader()">
+        {% csrf_token %}
+
+        <input type="text" name="symbol" class="form-control search-input"
+               placeholder="Enter company symbol e.g. MEBL" required>
+
+        <button type="submit" class="btn btn-primary scrape-btn">
+            Scrape Data
+        </button>
+    </form>
+
+    <!-- 🔄 LOADER -->
+    <div class="loader" id="loader"></div>
+
+    <!-- ⚠️ ERROR MESSAGE -->
+    {% if message %}
+    <div class="alert alert-warning mt-4">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <!-- ✅ RESULT -->
+    {% if result %}
+    <div class="result-box">
+        <h5>{{ result }}</h5>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+function showLoader(){
+    document.getElementById("loader").style.display = "block";
+}
+</script>
+
+{% endblock %}
